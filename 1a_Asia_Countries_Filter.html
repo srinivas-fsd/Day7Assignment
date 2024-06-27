@@ -1,0 +1,59 @@
+<html>
+    <head>
+        <title> 
+          Filter Asia Countries
+        </title>
+    </head>
+    <body>
+        <p align = "center">
+            <h2> 1a) Get all the countries from Asia continent/region using Filter method </h2>
+            <h3> Please check "Console" for the output </h3>
+        </p>
+        <script>
+            try
+            {
+            let xhr =  new XMLHttpRequest();
+            xhr.open("GET","https://restcountries.com/v3.1/all",true);
+
+            xhr.onload = function()
+            {
+                if(xhr.status>=200 && xhr.status<300)
+                {
+                    let response = JSON.parse(xhr.responseText);
+                    
+                    let asianCountriesObj = response.filter ( (obj) => {
+                       return obj.continents=="Asia" || obj.region=="Asia";
+                    });
+
+                    if(asianCountriesObj.length>0)
+                    {
+                        console.log("Total number of countries from Asia continent/region: " + asianCountriesObj.length);
+                        for(let i=0;i<asianCountriesObj.length;i++)
+                        {
+                               console.log((i+1) + ".  " + asianCountriesObj[i].name.common);        
+                        }
+                    }
+                    else
+                    {
+                        console.log("No Asian countries found");
+                    }
+                      
+                }
+                else
+                {
+                    console.log("Request failed, unable to get data from server!");
+                }
+            }
+
+            xhr.send();
+
+            }
+
+            catch(err)
+            {
+                console.log("The following run time error occured : ", err.message);
+            }
+            
+        </script>
+    </body>
+</html>

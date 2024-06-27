@@ -1,0 +1,56 @@
+<html>
+    <head><
+        <title> 
+         US Dollar Currency Filter
+        </title>
+    </head>
+    <body>
+        <p align = "center">
+            <h2> 1e)Printing the countries using US dollars as currency  </h2>
+            <h3> Please check "Console" for the output </h3>
+        </p>
+        <script>
+            try
+            {
+            let xhr =  new XMLHttpRequest();
+            xhr.open("GET","https://restcountries.com/v3.1/all",true);
+            xhr.onload = function()
+            {
+                if(xhr.status>=200 && xhr.status<300)
+                {
+                    let response = JSON.parse(xhr.responseText);
+
+                    console.log("Countries using US dollars as currency   : " );
+                    for(let i=0;i<response.length;i++)
+                    {
+                          
+                           var obj1 = response[i].currencies;
+                           for(key in obj1) 
+                            {
+                                if(obj1[key].name=="United States dollar") 
+                                {
+                                    console.log(response[i].name.common);
+                                }
+                            }
+ 
+                           
+                    }
+                    
+                } 
+                else
+                {
+                      console.log("Request failed, unable to get currency data from server!");
+                }
+            }
+
+            xhr.send();
+        }
+
+        catch(err)
+            {
+                console.log("The following run time error occured : ", err.message);
+            }
+
+        </script>
+    </body>
+</html>

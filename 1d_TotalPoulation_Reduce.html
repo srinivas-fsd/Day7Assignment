@@ -1,0 +1,43 @@
+<html>
+    <head><
+        <title> 
+          Print Total Population
+        </title>
+    </head>
+    <body>
+        <p align = "center">
+            <h2> 1d) Printing total population of countries using reduce method </h2>
+            <h3> Please check "Console" for the output </h3>
+        </p>
+        <script>
+            try
+            {
+            let xhr =  new XMLHttpRequest();
+            xhr.open("GET","https://restcountries.com/v3.1/all",true);
+            xhr.onload = function()
+            {
+                if(xhr.status>=200 && xhr.status<300)
+                {
+                    let response = JSON.parse(xhr.responseText);
+                    console.log("Total number of countries  : " + response.length);
+                    let totalPopulation =  response.reduce( (acc,curr) => {
+                            return acc + parseInt(curr.population);
+                        },0);
+                   console.log("Total population of all countries  : " + totalPopulation);
+                } 
+                else
+                {
+                      console.log("Request failed, unable to get population data from server!");
+                }
+            }
+
+            xhr.send();
+        }
+        catch(err)
+        {
+            console.log("The following run time error occured : ", err.message);
+        }
+
+        </script>
+    </body>
+</html>
